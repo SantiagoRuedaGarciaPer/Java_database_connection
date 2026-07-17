@@ -5,6 +5,7 @@
 package cp.integrador.crud_producto;
 
 import CONTROLADOR.Conexion;
+import VISTA.MenuCategoria;
 
 /**
  *
@@ -13,8 +14,7 @@ import CONTROLADOR.Conexion;
 public class CRUD_PRODUCTO {
 
     public static void main(String[] args) {
-        Conexion c = new Conexion();
-        c.conectar();
-        System.out.println("Conexion exitosa");
+        MenuCategoria menu = new MenuCategoria();
+        menu.menu();
     }
 }

@@ -10,14 +10,12 @@ import javax.swing.JOptionPane;
 
 
 public class CategoriaDAO {
-    private final Connection c;
+    private Conexion c =  new Conexion();
     
-    public CategoriaDAO(Connection c){
-        this.c = c;
-    }
+    
     
     public void create(Categoria categoria){
-        try (Connection con=c){
+        try (Connection con=c.conectar()){
             PreparedStatement ps = con.prepareStatement("INSERT INTO Categoria(nombre, descripcion) values (?, ?)");
             ps.setString(1, categoria.getNombre());
             ps.setString(2, categoria.getDescripcion());
@@ -28,7 +26,7 @@ public class CategoriaDAO {
     }
     
     public void update(Categoria categoria){
-        try (Connection con=c){
+        try (Connection con=c.conectar()){
             PreparedStatement ps = con.prepareStatement("update Categoria set nombre=?, descripcion=? where id=?");
             ps.setString(1, categoria.getNombre());
             ps.setString(2, categoria.getDescripcion());
@@ -42,7 +40,7 @@ public class CategoriaDAO {
     public void delete(Categoria categoria){
         int op = JOptionPane.showConfirmDialog(null, "Esta segur@ de eliminar a "+categoria.getNombre()+"?", null, JOptionPane.YES_NO_OPTION);
         if(op == 0){
-            try (Connection con=c){
+            try (Connection con=c.conectar()){
                 PreparedStatement ps = con.prepareStatement("delete from Categoria where id=?");
                 ps.setInt(1, categoria.getId());
                 ps.executeUpdate();
@@ -55,24 +53,24 @@ public class CategoriaDAO {
         
     }
     
-    public ArrayList<Categoria> listar(){
-        ArrayList<Categoria> result = new ArrayList<>();
-        try (Connection con=c){
-            PreparedStatement ps = con.prepareStatement("select * from categoroia");
+    public ArrayList<Categoria> listar() {
+        ArrayList<Categoria> respuesta = new ArrayList<>();
+        try (Connection con = c.conectar()) {
+            PreparedStatement ps = con.prepareStatement("select * from Categoria");
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                result.add(new Categoria(rs.getInt(1), rs.getString("nombre"), rs.getString("descripcion")));
+            while (rs.next()) {
+                respuesta.add(new Categoria(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return result;
+        return respuesta;
     }
     
     public Categoria buscar(int id){
         Categoria result = null;
-        try (Connection con=c){
-            PreparedStatement ps = con.prepareStatement("select * from categoroia where id =?");
+        try (Connection con=c.conectar()){
+            PreparedStatement ps = con.prepareStatement("select * from Categoria where id =?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
