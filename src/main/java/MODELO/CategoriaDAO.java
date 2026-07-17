@@ -10,11 +10,14 @@ import javax.swing.JOptionPane;
 
 
 public class CategoriaDAO {
-    Conexion c =  new Conexion();
-    JOptionPane jo = new JOptionPane();
+    private final Connection c;
+    
+    public CategoriaDAO(Connection c){
+        this.c = c;
+    }
     
     public void create(Categoria categoria){
-        try (Connection con=c.conectar()){
+        try (Connection con=c){
             PreparedStatement ps = con.prepareStatement("INSERT INTO Categoria(nombre, descripcion) values (?, ?)");
             ps.setString(1, categoria.getNombre());
             ps.setString(2, categoria.getDescripcion());
@@ -25,7 +28,7 @@ public class CategoriaDAO {
     }
     
     public void update(Categoria categoria){
-        try (Connection con=c.conectar()){
+        try (Connection con=c){
             PreparedStatement ps = con.prepareStatement("update Categoria set nombre=?, descripcion=? where id=?");
             ps.setString(1, categoria.getNombre());
             ps.setString(2, categoria.getDescripcion());
@@ -39,7 +42,7 @@ public class CategoriaDAO {
     public void delete(Categoria categoria){
         int op = JOptionPane.showConfirmDialog(null, "Esta segur@ de eliminar a "+categoria.getNombre()+"?", null, JOptionPane.YES_NO_OPTION);
         if(op == 0){
-            try (Connection con=c.conectar()){
+            try (Connection con=c){
                 PreparedStatement ps = con.prepareStatement("delete from Categoria where id=?");
                 ps.setInt(1, categoria.getId());
                 ps.executeUpdate();
@@ -54,7 +57,7 @@ public class CategoriaDAO {
     
     public ArrayList<Categoria> listar(){
         ArrayList<Categoria> result = new ArrayList<>();
-        try (Connection con=c.conectar()){
+        try (Connection con=c){
             PreparedStatement ps = con.prepareStatement("select * from categoroia");
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -68,7 +71,7 @@ public class CategoriaDAO {
     
     public Categoria buscar(int id){
         Categoria result = null;
-        try (Connection con=c.conectar()){
+        try (Connection con=c){
             PreparedStatement ps = con.prepareStatement("select * from categoroia where id =?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
