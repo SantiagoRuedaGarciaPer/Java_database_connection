@@ -4,6 +4,8 @@
 
 package cp.integrador.crud_producto;
 
+import CONTROLADOR.Conexion;
+
 /**
  *
  * @author camper
@@ -11,6 +13,8 @@ package cp.integrador.crud_producto;
 public class CRUD_PRODUCTO {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Conexion c = new Conexion();
+        c.conectar();
+        System.out.println("Conexion exitosa");
     }
 }
