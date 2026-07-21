@@ -1,7 +1,7 @@
 package CONTROLADOR;
 
 import MODELO.Categoria;
-import MODELO.CategoriaDAO;
+import DAO.CategoriaDAO;
 import VISTA.Validaciones;
 import java.util.ArrayList;
 

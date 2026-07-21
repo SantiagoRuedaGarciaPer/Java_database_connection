@@ -75,6 +75,20 @@ public class Producto {
     public void setPrecio_venta(double precio_venta) {
         this.precio_venta = precio_venta;
     }
+
+    @Override
+    public String toString() {
+        return """
+               ID:              %s
+               NOMBRE:          %s
+               DESCRIPCION:     %s
+               STOCK:           %s
+               PRECIO COMPRA:   %s
+               PREICO VENTA:    %s
+               %s
+               """.formatted(id, nombre, descripcion, stock, precio_compra, precio_venta, categoria );
+    }
+    
     
     
     
