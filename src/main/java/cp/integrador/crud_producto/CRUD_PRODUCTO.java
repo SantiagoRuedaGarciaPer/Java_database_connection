@@ -6,6 +6,7 @@ package cp.integrador.crud_producto;
 
 import CONTROLADOR.Conexion;
 import VISTA.MenuCategoria;
+import VISTA.MenuPrincipal;
 
 /**
  *
@@ -14,7 +15,7 @@ import VISTA.MenuCategoria;
 public class CRUD_PRODUCTO {
 
     public static void main(String[] args) {
-        MenuCategoria menu = new MenuCategoria();
+        MenuPrincipal menu = new MenuPrincipal();
         menu.menu();
     }
 }

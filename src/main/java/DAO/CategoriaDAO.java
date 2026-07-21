@@ -1,6 +1,7 @@
-package MODELO;
+package DAO;
 
 import CONTROLADOR.Conexion;
+import MODELO.Categoria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
